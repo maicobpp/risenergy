@@ -6,6 +6,137 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Users {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+
+  @@map("user")
+}
+
+model Organizations {
+  id        String      @id @default(uuid())
+  name      String
+  customers Customers[]
+  projects  Projects[]
+
+  @@map("organizations")
+}
+
+model UsersOrganizations {
+  id      String @id @default(uuid())
+  user_id String
+  org_id  String
+
+  @@map("users_organizations")
+}
+
+model Customers {
+  id           String        @id @default(uuid())
+  name         String
+  phone        String?
+  email        String?
+  org_id       String
+  organization Organizations @relation(fields: [org_id], references: [id])
+  projects     Projects[]
+  units        Units[]
+
+  @@map("customers")
+}
+
+model Projects {
+  id            String          @id @default(uuid())
+  date          DateTime
+  status        Int
+  customer_id   String
+  customer      Customers       @relation(fields: [customer_id], references: [id])
+  org_id        String
+  organization  Organizations   @relation(fields: [org_id], references: [id])
+  projectsUnits ProjectsUnits[]
+
+  @@map("projects")
+}
+
+model Countries {
+  id      String   @id @default(uuid())
+  country String
+  states  States[]
+
+  @@map("countries")
+}
+
+model States {
+  id           String    @id @default(uuid())
+  state        String
+  abbreviation String?
+  country_id   String
+  country      Countries @relation(fields: [country_id], references: [id])
+  cities       Cities[]
+
+  @@map("states")
+}
+
+model MonthsData {
+  id        String   @id @default(uuid())
+  january   Float?
+  frebruary Float?
+  march     Float?
+  april     Float?
+  may       Float?
+  june      Float?
+  july      Float?
+  september Float?
+  october   Float?
+  november  Float?
+  december  Float?
+  cities    Cities[]
+  units     Units[]
+
+  @@map("month_data")
+}
+
+model Cities {
+  id          String     @id @default(uuid())
+  city        String
+  latitude    Float?
+  longitude   Float?
+  inclination Int?
+  state_id    String
+  state       States     @relation(fields: [state_id], references: [id])
+  data_id     String
+  data        MonthsData @relation(fields: [data_id], references: [id])
+
+  @@map("cities")
+}
+
+model Units {
+  id             String          @id @default(uuid())
+  name           String
+  number         String
+  orientation    String
+  fixed_cost     Float?
+  last_bill      Float?
+  minimun_charge Float?
+  customer_id    String
+  customer       Customers       @relation(fields: [customer_id], references: [id])
+  data_id        String
+  data           MonthsData      @relation(fields: [data_id], references: [id])
+  projectsUnits  ProjectsUnits[]
+
+  @@map("units")
+}
+
+model ProjectsUnits {
+  id         String   @id @default(uuid())
+  project_id String
+  project    Projects @relation(fields: [project_id], references: [id])
+  unit_id    String
+  unit       Units    @relation(fields: [unit_id], references: [id])
+
+  @@map("projects_units")
 }
