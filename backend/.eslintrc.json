@@ -18,6 +18,17 @@
         "eslint-plugin-import-helpers"
     ],
     "rules": {
+        "indent": "off",
+        "@typescript-eslint/indent": [
+            "error",
+            2
+        ],
+        "max-len": [
+            "error",
+            {
+                "code": 120
+            }
+        ],
         "camelcase": "off",
         "import/no-unresolved": "error",
         "@typescript-eslint/naming-convention": [

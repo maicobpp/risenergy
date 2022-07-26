@@ -8,8 +8,8 @@ interface IAuthenticateUser {
   password: string;
 }
 
-export class AuthenticateUserUseCase {
-  async execute({ email, password }: IAuthenticateUser) {
+export class AuthenticationService {
+  async verify({ email, password }: IAuthenticateUser) {
     const user = await prisma.users.findFirst({
       where: {
         email,

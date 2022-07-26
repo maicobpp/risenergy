@@ -1,15 +1,10 @@
 import { hash } from 'bcrypt';
 
 import { prisma } from '../../database/prismaClient';
+import { ICreateUser } from '../interfaces/IUsers';
 
-interface ICreateUser {
-  name: string;
-  email: string;
-  password: string;
-}
-
-export class CreateUserUseCase {
-  async execute({ name, email, password }: ICreateUser) {
+export class UserService {
+  async store({ name, email, password }: ICreateUser) {
     const userExist = await prisma.users.findFirst({
       where: {
         email,
