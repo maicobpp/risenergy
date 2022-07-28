@@ -1,5 +1,5 @@
 import { prisma } from '../../database/prismaClient';
-import { IOrganization } from '../interfaces/IOrganizations';
+import { IOrganization, IOrgID } from '../interfaces/IOrganizations';
 import { UsersOrgsService } from './UsersOrgsService';
 
 export class OrganizationService {
@@ -17,6 +17,16 @@ export class OrganizationService {
         user_id,
       });
     }
+
+    return organization;
+  }
+
+  async delete({ id }: IOrgID) {
+    const organization = await prisma.organizations.delete({
+      where: {
+        id,
+      },
+    });
 
     return organization;
   }

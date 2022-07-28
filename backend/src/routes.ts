@@ -13,9 +13,12 @@ const authenticationController = new AuthenticationController();
 const organizationController = new OrganizationController();
 const usersOrgsController = new UsersOrgsController();
 
-routes.post('/user/', userController.store);
-routes.post('/authenticate/', authenticationController.handle);
-routes.post('/organization/', ensureAuthentication, organizationController.store);
-routes.post('/associate/', ensureAuthentication, usersOrgsController.associate);
+routes.post('/user', userController.store);
+routes.post('/authenticate', authenticationController.handle);
+routes.post('/organization', ensureAuthentication, organizationController.store);
+routes.post('/associate', ensureAuthentication, usersOrgsController.associate);
+routes.post('/dissociate', ensureAuthentication, usersOrgsController.dissociate);
+routes.get('/user/organizations', ensureAuthentication, usersOrgsController.getUserOrgs);
+routes.delete('/organization/delete', ensureAuthentication, organizationController.delete);
 
 export { routes };

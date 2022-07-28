@@ -11,27 +11,31 @@ datasource db {
 }
 
 model Users {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
+  id        String               @id @default(uuid())
+  name      String
+  email     String               @unique
+  password  String
+  usersorgs UsersOrganizations[]
 
   @@map("user")
 }
 
 model Organizations {
-  id        String      @id @default(uuid())
+  id        String               @id @default(uuid())
   name      String
   customers Customers[]
   projects  Projects[]
+  usersorgs UsersOrganizations[]
 
   @@map("organizations")
 }
 
 model UsersOrganizations {
-  id      String @id @default(uuid())
-  user_id String
-  org_id  String
+  id           String        @id @default(uuid())
+  user_id      String
+  users        Users         @relation(fields: [user_id], references: [id])
+  org_id       String
+  organization Organizations @relation(fields: [org_id], references: [id])
 
   @@map("users_organizations")
 }
