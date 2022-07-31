@@ -4,7 +4,7 @@ import { prisma } from '../../database/prismaClient';
 import { ICreateUser } from '../interfaces/IUsers';
 
 export class UserService {
-  async store({ name, email, password }: ICreateUser) {
+  async create({ name, email, password }: ICreateUser) {
     const userExist = await prisma.users.findFirst({
       where: {
         email,
