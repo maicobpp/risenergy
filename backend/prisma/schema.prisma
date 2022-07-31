@@ -114,6 +114,7 @@ model Cities {
   state       States     @relation(fields: [state_id], references: [id])
   data_id     String
   data        MonthsData @relation(fields: [data_id], references: [id])
+  units       Units[]
 
   @@map("cities")
 }
@@ -130,6 +131,8 @@ model Units {
   customer       Customers       @relation(fields: [customer_id], references: [id])
   data_id        String
   data           MonthsData      @relation(fields: [data_id], references: [id])
+  city_id        String
+  city           Cities          @relation(fields: [city_id], references: [id])
   projectsUnits  ProjectsUnits[]
 
   @@map("units")
