@@ -3,14 +3,21 @@ import { IOrganization, IOrgID } from '../interfaces/IOrganizations';
 import { UsersOrgsService } from './UsersOrgsService';
 
 export class OrganizationService {
-  async store({ name, user_id }: IOrganization) {
-    const organization = await prisma.organizations.create({
-      data: {
+  async store({ id, name, user_id }: IOrganization) {
+    const newOrg = id !== '';
+    const organization = await prisma.organizations.upsert({
+      where: {
+        id,
+      },
+      update: {
+        name,
+      },
+      create: {
         name,
       },
     });
 
-    if (organization) {
+    if (organization && newOrg) {
       const associateUsersOrgs = new UsersOrgsService();
       await associateUsersOrgs.associate({
         org_id: organization.id,

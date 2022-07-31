@@ -5,11 +5,12 @@ import { UsersOrgsService } from '../services/UsersOrgsService';
 
 export class OrganizationController {
   async store(request: Request, response: Response) {
-    const { name } = request.body;
+    const { id, name } = request.body;
     const { user_id } = request;
 
     const storeOrganization = new OrganizationService();
     const result = await storeOrganization.store({
+      id,
       name,
       user_id,
     });
