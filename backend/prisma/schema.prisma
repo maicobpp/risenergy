@@ -88,12 +88,13 @@ model States {
 model MonthsData {
   id        String   @id @default(uuid())
   january   Float?
-  frebruary Float?
+  february  Float?
   march     Float?
   april     Float?
   may       Float?
   june      Float?
   july      Float?
+  august    Float?
   september Float?
   october   Float?
   november  Float?
