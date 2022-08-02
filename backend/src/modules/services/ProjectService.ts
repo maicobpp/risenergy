@@ -1,5 +1,5 @@
 import { prisma } from '../../database/prismaClient';
-import { IProjects, IProjectsID } from '../interfaces/IProjects';
+import { IProjects, IProjectsID, IProjectsOrg } from '../interfaces/IProjects';
 
 export class ProjectService {
   async store({
@@ -33,5 +33,18 @@ export class ProjectService {
     });
 
     return project;
+  }
+
+  async orgProjects({ org_id }: IProjectsOrg) {
+    const projects = await prisma.projects.findMany({
+      where: {
+        org_id,
+      },
+      include: {
+        customer: true,
+      },
+    });
+
+    return projects;
   }
 }

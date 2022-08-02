@@ -29,6 +29,7 @@ routes.post('/monthdata', ensureAuthentication, monthDataControler.store);
 routes.post('/project', ensureAuthentication, projectDataController.store);
 
 routes.get('/user/organizations', ensureAuthentication, usersOrgsController.getUserOrgs);
+routes.get('/projects', ensureAuthentication, projectDataController.getOrgProjects);
 
 routes.delete('/organization/delete', ensureAuthentication, organizationController.delete);
 routes.delete('/customer/delete', ensureAuthentication, customerController.delete);

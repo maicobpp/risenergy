@@ -4,7 +4,7 @@ import { ProjectService } from '../services/ProjectService';
 
 export class ProjectController {
   async store(request: Request, response: Response) {
-    const { org_id } = request.headers as { org_id : string};
+    const { org_id } = request.headers as { org_id: string };
     const {
       id, date, status, customer_id,
     } = request.body;
@@ -12,7 +12,7 @@ export class ProjectController {
     const storeProjects = new ProjectService();
     const result = await storeProjects.store({
       id,
-      date,
+      date: new Date(date),
       status,
       customer_id,
       org_id,
@@ -24,9 +24,20 @@ export class ProjectController {
   async delete(request: Request, response: Response) {
     const { id } = request.body;
 
-    const storeProjects = new ProjectService();
-    const result = await storeProjects.delete({
+    const deleteProjects = new ProjectService();
+    const result = await deleteProjects.delete({
       id,
+    });
+
+    return response.json(result);
+  }
+
+  async getOrgProjects(request: Request, response: Response) {
+    const { org_id } = request.headers as { org_id: string };
+
+    const orgProjects = new ProjectService();
+    const result = await orgProjects.orgProjects({
+      org_id,
     });
 
     return response.json(result);

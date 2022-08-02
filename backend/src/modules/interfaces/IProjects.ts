@@ -9,3 +9,7 @@ export interface IProjects {
 export interface IProjectsID {
   id: string;
 }
+
+export interface IProjectsOrg {
+  org_id: string;
+}
