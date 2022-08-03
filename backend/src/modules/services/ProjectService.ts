@@ -1,10 +1,10 @@
 import { prisma } from '../../database/prismaClient';
-import { IProjects, IProjectsID, IProjectsOrg } from '../interfaces/IProjects';
+import { IProject, IProjectID, IProjectOrg } from '../interfaces/IProjects';
 
 export class ProjectService {
   async store({
-    id, date, status, customer_id, org_id,
-  }: IProjects) {
+    id, date, status, customer_id, city_id, org_id,
+  }: IProject) {
     const project = await prisma.projects.upsert({
       where: {
         id,
@@ -13,11 +13,13 @@ export class ProjectService {
         date,
         status,
         customer_id,
+        city_id,
       },
       create: {
         date,
         status,
         customer_id,
+        city_id,
         org_id,
       },
     });
@@ -25,7 +27,7 @@ export class ProjectService {
     return project;
   }
 
-  async delete({ id }: IProjectsID) {
+  async delete({ id }: IProjectID) {
     const project = await prisma.projects.delete({
       where: {
         id,
@@ -35,7 +37,7 @@ export class ProjectService {
     return project;
   }
 
-  async orgProjects({ org_id }: IProjectsOrg) {
+  async orgProjects({ org_id }: IProjectOrg) {
     const projects = await prisma.projects.findMany({
       where: {
         org_id,
