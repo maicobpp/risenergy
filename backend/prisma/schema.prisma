@@ -61,6 +61,8 @@ model Projects {
   customer      Customers       @relation(fields: [customer_id], references: [id])
   org_id        String
   organization  Organizations   @relation(fields: [org_id], references: [id])
+  city_id       String
+  city          Cities          @relation(fields: [city_id], references: [id])
   projectsUnits ProjectsUnits[]
 
   @@map("projects")
@@ -106,16 +108,15 @@ model MonthsData {
 }
 
 model Cities {
-  id          String     @id @default(uuid())
-  city        String
-  latitude    Float?
-  longitude   Float?
-  inclination Int?
-  state_id    String
-  state       States     @relation(fields: [state_id], references: [id])
-  data_id     String
-  data        MonthsData @relation(fields: [data_id], references: [id])
-  units       Units[]
+  id        String     @id @default(uuid())
+  city      String
+  latitude  Float?
+  longitude Float?
+  state_id  String
+  state     States     @relation(fields: [state_id], references: [id])
+  data_id   String
+  data      MonthsData @relation(fields: [data_id], references: [id])
+  projects  Projects[]
 
   @@map("cities")
 }
@@ -123,8 +124,9 @@ model Cities {
 model Units {
   id             String          @id @default(uuid())
   name           String
-  number         String
+  number         String?
   orientation    String
+  inclination    Int
   fixed_cost     Float?
   last_bill      Float?
   minimun_charge Float?
@@ -132,8 +134,6 @@ model Units {
   customer       Customers       @relation(fields: [customer_id], references: [id])
   data_id        String
   data           MonthsData      @relation(fields: [data_id], references: [id])
-  city_id        String
-  city           Cities          @relation(fields: [city_id], references: [id])
   projectsUnits  ProjectsUnits[]
 
   @@map("units")
