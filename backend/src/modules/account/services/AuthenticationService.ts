@@ -24,7 +24,7 @@ export class AuthenticationService {
 
     const token = sign({ email }, 'cbeba195f8f12e45d0ac9ff97f0fa32e', {
       subject: user.id,
-      expiresIn: '1d',
+      expiresIn: '30d',
     });
 
     return token;
