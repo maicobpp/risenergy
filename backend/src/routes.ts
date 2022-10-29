@@ -1,3 +1,4 @@
+import cors from 'cors';
 import { Router } from 'express';
 
 import { authenticationRoutes } from './modules/account/routes';
@@ -9,6 +10,8 @@ import { unitsRoutes } from './modules/units/routes';
 import { userRoutes } from './modules/users/routes';
 
 const routes = Router();
+
+routes.use(cors());
 
 routes.use('/authenticate', authenticationRoutes);
 routes.use('/customer', customersRoutes);
