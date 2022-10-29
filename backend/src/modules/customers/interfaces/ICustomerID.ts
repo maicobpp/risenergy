@@ -1,3 +1,3 @@
-export interface ICustomerID {
+export type ICustomerID = {
   id: string;
 }

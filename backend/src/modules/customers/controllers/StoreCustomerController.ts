@@ -4,7 +4,7 @@ import { StoreCustomerService } from '../services/StoreCustomerService';
 
 export class StoreCustomerController {
   async handle(request: Request, response: Response) {
-    const { org_id } = request.headers as { org_id : string};
+    const { org_id } = request.headers as { org_id: string };
     const {
       id, name, email, phone,
     } = request.body;

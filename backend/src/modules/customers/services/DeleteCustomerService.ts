@@ -1,8 +1,10 @@
 import { prisma } from '../../../database/prismaClient';
-import { ICustomerID } from '../interfaces/ICustomerID';
+import { ICustomer } from '../interfaces/ICustomer';
+
+type TCustomerID = Pick<ICustomer, 'id'>;
 
 export class DeleteCustomerService {
-  async execute({ id }: ICustomerID) {
+  async execute({ id }: TCustomerID) {
     const customer = await prisma.customers.delete({
       where: {
         id,
