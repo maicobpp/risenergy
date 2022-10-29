@@ -44,6 +44,7 @@ CREATE TABLE `projects` (
     `status` INTEGER NOT NULL,
     `customer_id` VARCHAR(191) NOT NULL,
     `org_id` VARCHAR(191) NOT NULL,
+    `city_id` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -70,12 +71,13 @@ CREATE TABLE `states` (
 CREATE TABLE `month_data` (
     `id` VARCHAR(191) NOT NULL,
     `january` DOUBLE NULL,
-    `frebruary` DOUBLE NULL,
+    `february` DOUBLE NULL,
     `march` DOUBLE NULL,
     `april` DOUBLE NULL,
     `may` DOUBLE NULL,
     `june` DOUBLE NULL,
     `july` DOUBLE NULL,
+    `august` DOUBLE NULL,
     `september` DOUBLE NULL,
     `october` DOUBLE NULL,
     `november` DOUBLE NULL,
@@ -90,7 +92,6 @@ CREATE TABLE `cities` (
     `city` VARCHAR(191) NOT NULL,
     `latitude` DOUBLE NULL,
     `longitude` DOUBLE NULL,
-    `inclination` INTEGER NULL,
     `state_id` VARCHAR(191) NOT NULL,
     `data_id` VARCHAR(191) NOT NULL,
 
@@ -101,8 +102,9 @@ CREATE TABLE `cities` (
 CREATE TABLE `units` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `number` VARCHAR(191) NOT NULL,
+    `number` VARCHAR(191) NULL,
     `orientation` VARCHAR(191) NOT NULL,
+    `inclination` INTEGER NOT NULL,
     `fixed_cost` DOUBLE NULL,
     `last_bill` DOUBLE NULL,
     `minimun_charge` DOUBLE NULL,
@@ -122,6 +124,12 @@ CREATE TABLE `projects_units` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
+ALTER TABLE `users_organizations` ADD CONSTRAINT `users_organizations_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `users_organizations` ADD CONSTRAINT `users_organizations_org_id_fkey` FOREIGN KEY (`org_id`) REFERENCES `organizations`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `customers` ADD CONSTRAINT `customers_org_id_fkey` FOREIGN KEY (`org_id`) REFERENCES `organizations`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -129,6 +137,9 @@ ALTER TABLE `projects` ADD CONSTRAINT `projects_customer_id_fkey` FOREIGN KEY (`
 
 -- AddForeignKey
 ALTER TABLE `projects` ADD CONSTRAINT `projects_org_id_fkey` FOREIGN KEY (`org_id`) REFERENCES `organizations`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `projects` ADD CONSTRAINT `projects_city_id_fkey` FOREIGN KEY (`city_id`) REFERENCES `cities`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `states` ADD CONSTRAINT `states_country_id_fkey` FOREIGN KEY (`country_id`) REFERENCES `countries`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
