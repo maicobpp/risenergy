@@ -1,9 +1,7 @@
 export interface IUnit {
   id?: string;
   name: string;
-  number: string;
-  orientation: string;
-  inclination: number;
+  number?: string;
   fixed_cost?: number;
   last_bill?: number;
   minimun_charge: number;
