@@ -27,6 +27,7 @@
         "code": 130
       }
     ],
-    "array-callback-return": "off"
+    "array-callback-return": "off",
+    "@typescript-eslint/naming-convention": "off"
   }
 }
