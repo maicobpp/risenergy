@@ -56,7 +56,9 @@ model Customers {
 model Projects {
   id            String          @id @default(uuid())
   date          DateTime
-  status        Int
+  status        String
+  orientation   String?
+  inclination   Int?
   customer_id   String
   customer      Customers       @relation(fields: [customer_id], references: [id])
   org_id        String
@@ -125,8 +127,6 @@ model Units {
   id             String          @id @default(uuid())
   name           String
   number         String?
-  orientation    String
-  inclination    Int
   fixed_cost     Float?
   last_bill      Float?
   minimun_charge Float?
