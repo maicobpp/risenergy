@@ -1,65 +1,34 @@
 import { makeAutoObservable } from 'mobx';
-import { Customer } from '../interfaces/Customer';
+import { ICustomer } from '../interfaces/ICustomer';
 import { api } from '../lib/api';
-import sleep from '../lib/sleep';
+import sleep from '../utils/sleep';
 
 class CustomersListStore {
-  customers: Array<Customer> = [];
+  customers: Array<ICustomer> = [];
 
-  isloading = false;
+  isLoading = false;
 
   constructor() {
     makeAutoObservable(this);
     this.loadCustomers();
   }
 
-  async loadCustomers() {
-    this.isloading = true;
+  loadCustomers = async () => {
+    this.isLoading = true;
     await sleep(300);
-    const reponse = await api.get('customer/list');
-    this.customers = reponse.data;
-    this.isloading = false;
-  }
+    const response = await api.get('customer/list');
+    this.customers = response.data;
+    this.isLoading = false;
+  };
 
-  async deleteCustomer(id: string) {
+  deleteCustomer = async (id: string) => {
     await api.delete('customer/delete', {
       params: {
         id,
       },
     });
     this.loadCustomers();
-  }
+  };
 }
 
 export const stateCustomersList = new CustomersListStore();
-
-// export default () => ({
-//     customers: [],
-//     isLoading: false,
-
-//     init() {
-//         this.loadCustomers()
-//     },
-
-//     // get activeCustomers() {
-//         //return this.customers.filter(customer => customer.active)
-//     // },
-
-//     async loadCustomers() {
-//         this.isLoading = true
-
-//         const response = await api.get('customer/list')
-
-//         this.customers = response.data
-
-//         this.customers.map((customer) => {
-//             console.log(customer);
-//         })
-
-//         this.isLoading = false
-//     },
-
-//     // async bigFunction(...args) {
-//     //     return bigFunction(this, ...args)
-//     // }
-// })

@@ -2,12 +2,13 @@ import {
   Box, Button, Flex, Heading, Icon, Table, Tbody, Td, Text, Th, Thead, Tr,
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { RiAddLine, RiDeleteBin2Line, RiPencilLine } from 'react-icons/ri';
 import { Loading } from '../components/Loading';
 import { stateCustomersList } from '../stores/CustomersListState';
 
 export const CustomersList = observer(() => {
-  if (stateCustomersList.isloading) {
+  if (stateCustomersList.isLoading) {
     return (
       <Loading />
     );
@@ -22,7 +23,7 @@ export const CustomersList = observer(() => {
           size="sm"
           fontSize="sm"
           colorScheme="blue"
-          href="/customer"
+          href="/customer/new"
           leftIcon={<Icon as={RiAddLine} />}
         >
           Novo Cliente
@@ -33,9 +34,9 @@ export const CustomersList = observer(() => {
           <Tr>
             <Th>Cliente</Th>
             <Th>Cidade</Th>
-            <Th width="4" />
-            <Th width="4" />
-            <Th width="4" />
+            <Th width="3" />
+            <Th width="3" />
+            <Th width="3" />
           </Tr>
         </Thead>
         <Tbody>
@@ -52,7 +53,14 @@ export const CustomersList = observer(() => {
                   <Text fontSize="sm" fontWeight="bold">{customer.phone}</Text>
                 </Td>
                 <Td>
-                  <Button as="a" size="sm" fontSize="xs" colorScheme="cyan" leftIcon={<Icon as={RiPencilLine} />}>
+                  <Button
+                    as="a"
+                    size="sm"
+                    fontSize="xs"
+                    colorScheme="cyan"
+                    href={`/units/${customer.id}`}
+                    leftIcon={<Icon as={RiPencilLine} />}
+                  >
                     Instalações
                   </Button>
                 </Td>
