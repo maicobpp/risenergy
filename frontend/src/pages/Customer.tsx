@@ -1,7 +1,6 @@
 import {
-  Box, Button, Flex, Heading, HStack, Icon, Modal, ModalBody, ModalCloseButton,
-  ModalContent, ModalFooter, ModalHeader, ModalOverlay,
-  SimpleGrid, Spinner, Text, useDisclosure, VStack,
+  Box, Button, Flex, Heading, HStack, Icon,
+  SimpleGrid, Spinner, VStack,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
@@ -13,14 +12,12 @@ import { stateCustomer } from '../stores/CustomerState';
 
 export const Customer = observer(() => {
   const params = useParams();
-  const { id } = params as { id: string };
-  // const urlParams = new URLSearchParams(window.location.search);
-  // const id = urlParams.get('id') as string;
-  const { isOpen, onOpen, onClose } = useDisclosure;
+  const { id } = params as { id: string } || '';
+  const final = (id === 'new' ? '' : id);
 
   useEffect(() => {
-    stateCustomer.loadCustomer(id);
-  }, [id]);
+    stateCustomer.loadCustomer(final);
+  }, [final]);
 
   if (stateCustomer.isLoading && !stateCustomer.isSaving) {
     return (<Loading />);
@@ -29,7 +26,7 @@ export const Customer = observer(() => {
   return (
     <Box flex="1" borderRadius={8} bg="gray.800" p="8">
       <Flex mb="8" justify="space-between" align="center">
-        <Heading size="lg" fontWeight="normal">Cliente</Heading>
+        <Heading size="md" fontWeight="normal">Cliente</Heading>
         <Heading size="xs" textColor="gray.400" fontWeight="normal">{stateCustomer.customer.id}</Heading>
       </Flex>
       <VStack spacing="4">
@@ -59,26 +56,16 @@ export const Customer = observer(() => {
 
       <HStack mt="10">
         <Flex justify="flex-start">
-          <Button size="sm" fontSize="sm" colorScheme="cyan" leftIcon={<Icon as={RiSaveLine} />} onClick={onOpen}>
+          <Button
+            as="a"
+            size="sm"
+            fontSize="sm"
+            colorScheme="cyan"
+            href={`/units/${stateCustomer.customer.id}`}
+            leftIcon={<Icon as={RiSaveLine} />}
+          >
             Instalações
           </Button>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Modal Title</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <Text>uahsdiuhasiudhaisu iuashdiuahsdiuahsdi uhasidu ha</Text>
-              </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={onClose}>
-                  Close
-                </Button>
-                <Button variant="ghost">Secondary Action</Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
         </Flex>
         <Flex justify="flex-end" w="100%">
           <HStack spacing="4">

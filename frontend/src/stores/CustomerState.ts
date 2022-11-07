@@ -1,10 +1,10 @@
 import { makeAutoObservable } from 'mobx';
-import { Customer } from '../interfaces/Customer';
+import { ICustomer } from '../interfaces/ICustomer';
 import { api } from '../lib/api';
-import sleep from '../lib/sleep';
+import sleep from '../utils/sleep';
 
 export class CustomerStore {
-  customer: Customer = {
+  customer: ICustomer = {
     id: '',
     name: '',
     email: '',
@@ -23,12 +23,12 @@ export class CustomerStore {
     if (id) {
       this.isLoading = true;
       await sleep(300);
-      const reponse = await api.get('customer', {
+      const response = await api.get('customer', {
         params: {
           id,
         },
       });
-      this.customer = reponse.data;
+      this.customer = response.data;
       this.isLoading = false;
       this.isSaving = false;
     }
@@ -43,15 +43,6 @@ export class CustomerStore {
     const { id } = response.data;
     this.loadCustomer(id);
   };
-
-  // deleteCustomer = async (id: string) => {
-  //   await sleep(300);
-  //   await api.delete('customer/delete', {
-  //     params: {
-  //       id,
-  //     },
-  //   });
-  // };
 }
 
 export const stateCustomer = new CustomerStore();
