@@ -23,6 +23,9 @@ export const theme = extendTheme({
           textDecoration: 'underline',
         },
       },
+      option: {
+        color: 'gray.900',
+      },
     },
   },
 });
