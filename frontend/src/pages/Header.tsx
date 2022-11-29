@@ -1,7 +1,6 @@
 import {
-  Flex, Text, Input, Icon, Box, Avatar, Image,
+  Flex, Text, Box, Avatar, Image,
 } from '@chakra-ui/react';
-import { RiSearchLine } from 'react-icons/ri';
 import logo from '../assets/logo.svg';
 
 export function Headers() {
@@ -27,7 +26,7 @@ export function Headers() {
         <Text as="span" ml="1" color="green.400">.</Text>
       </Text>
 
-      <Flex
+      {/* <Flex
         as="label"
         flex="1"
         py="4"
@@ -49,7 +48,7 @@ export function Headers() {
           _placeholder={{ color: 'gray.400' }}
         />
         <Icon as={RiSearchLine} fontSize="20" />
-      </Flex>
+      </Flex> */}
 
       <Flex
         align="center"
