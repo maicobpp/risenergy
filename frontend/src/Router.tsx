@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { Default } from './layouts/Default';
+import { CompanySelector } from './pages/CompanySelector';
 import { Customer } from './pages/Customer';
 import { CustomersList } from './pages/CustomersList';
 import { Dashboard } from './pages/Dashboard';
@@ -20,6 +21,7 @@ export function Router() {
         <Route path="/project/:id" element={<Project />} />
       </Route>
       <Route path="/login" element={<Login />} />
+      <Route path="/companyselector" element={<CompanySelector />} />
     </Routes>
   );
 }
