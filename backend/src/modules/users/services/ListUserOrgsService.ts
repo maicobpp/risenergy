@@ -1,7 +1,7 @@
 import { prisma } from '../../../database/prismaClient';
 import { IUserID } from '../interfaces/IUserID';
 
-export class FindUserOrgsService {
+export class ListUserOrgsService {
   async execute({ user_id }: IUserID) {
     const userOrgs = await prisma.usersOrganizations.findMany({
       where: {
