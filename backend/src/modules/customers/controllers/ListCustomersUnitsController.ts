@@ -4,11 +4,11 @@ import { ListCustomersUnitsService } from '../services/ListCustomersUnitsService
 
 export class ListCustomerUnitsController {
   async handle(request: Request, response: Response) {
-    const { id } = request.query as { id: string };
+    const { customer_id } = request.query as { customer_id: string };
 
     const units = new ListCustomersUnitsService();
     const result = await units.execute({
-      id,
+      id: customer_id,
     });
 
     const avgsAdd = result.map((unit) => {

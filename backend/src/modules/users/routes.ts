@@ -1,16 +1,16 @@
 import { Router } from 'express';
 
 import { ensureAuthentication } from '../../middlewares/ensureAuthentication';
-import { FindUserOrgsController } from './controllers/FindUserOrgsController';
+import { ListUserOrgsController } from './controllers/ListUserOrgsController';
 import { StoreUserController } from './controllers/StoreUserController';
 
 const userRoutes = Router();
 
 const storeUserController = new StoreUserController();
-const findUserOrgsController = new FindUserOrgsController();
+const listUserOrgsController = new ListUserOrgsController();
 
 userRoutes.post('/', storeUserController.handle);
 
-userRoutes.get('/organizations', ensureAuthentication, findUserOrgsController.handle);
+userRoutes.get('/organizations', ensureAuthentication, listUserOrgsController.handle);
 
 export { userRoutes };
