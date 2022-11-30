@@ -1,18 +1,19 @@
 import { makeAutoObservable } from 'mobx';
 import { IProject } from '../interfaces/IProject';
 import { api } from '../lib/api';
+import { currentDate } from '../utils/currentDate';
 import sleep from '../utils/sleep';
 
 export class ProjectStore {
   project: IProject = {
     id: '',
-    date: '',
-    inclination: 0,
+    date: currentDate,
+    inclination: 22,
     orientation: 'Norte',
     status: 'quote',
     city: { id: '', city: '' },
     customer: { id: '' },
-    units: [],
+    units: [{ id: '', customer_id: '', data: { id: '' } }],
   };
 
   isLoading = false;

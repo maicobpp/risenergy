@@ -1,9 +1,8 @@
 import {
-  Box, Button, Icon, Table, Tbody, Td, Text, Th, Thead, Tr,
+  Box, Table, Tbody, Td, Text, Th, Thead, Tr,
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { RiDeleteBin2Line } from 'react-icons/ri';
 import { Loading } from './Loading';
 import { stateUnitsList } from '../stores/UnitsListState';
 import { integerFormatter, priceFormatter } from '../utils/formatter';
@@ -22,6 +21,7 @@ export const PorjectUnits = observer(({ customer }: ICustomerID) => {
       <Loading />
     );
   }
+
   return (
     <Box flex="1" borderRadius={4} p="4" bg="gray.900" mt="2">
       <Table colorScheme="whiteAlpha">
@@ -32,7 +32,7 @@ export const PorjectUnits = observer(({ customer }: ICustomerID) => {
             <Th><Text align="right">Ultima Conta</Text></Th>
             <Th><Text align="right">Custo Fixo</Text></Th>
             <Th><Text align="right">Taxa Mínima</Text></Th>
-            <Th width="3" />
+            {/* <Th width="3" /> */}
           </Tr>
         </Thead>
         <Tbody>
@@ -54,7 +54,7 @@ export const PorjectUnits = observer(({ customer }: ICustomerID) => {
                 <Td>
                   <Text align="right" fontSize="xs" color="gray.200">{priceFormatter.format(unit.minimun_charge || 0)}</Text>
                 </Td>
-                <Td>
+                {/* <Td>
                   <Button
                     size="sm"
                     fontSize="xs"
@@ -62,7 +62,7 @@ export const PorjectUnits = observer(({ customer }: ICustomerID) => {
                     leftIcon={<Icon as={RiDeleteBin2Line} />}
                     onClick={() => { stateUnitsList.deleteUnit(unit.id, unit.customer_id); }}
                   />
-                </Td>
+                </Td> */}
               </Tr>
             );
           })}

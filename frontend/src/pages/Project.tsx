@@ -14,6 +14,7 @@ import { stateProject } from '../stores/ProjectState';
 import { addTime, removeTime } from '../utils/formatter';
 import { PorjectUnits } from '../components/ProjectUnits';
 import { DimensioningModal } from '../components/DimensioningModal';
+import { FindCustomerModal } from '../components/FindCustomerModal';
 
 export const Project = observer(() => {
   const params = useParams();
@@ -41,6 +42,9 @@ export const Project = observer(() => {
             label="Cliente"
             value={stateProject.project.customer.name}
           />
+          <FindCustomerModal />
+        </SimpleGrid>
+        <SimpleGrid minChildWidth="240px" spacing="8" w="100%">
           <Input
             name="date"
             label="Data"
@@ -136,7 +140,7 @@ export const Project = observer(() => {
               size="sm"
               fontSize="sm"
               colorScheme="whiteAlpha"
-              href="/customers"
+              href="/projects"
               leftIcon={<Icon as={RiCloseLine} />}
             >
               Cancelar
